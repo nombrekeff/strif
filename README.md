@@ -32,7 +32,7 @@
 ## Features <!-- omit in toc -->
 * ✔︎ Expandable/Configurable
 * ✔︎ No Dependencies
-* ✔︎ Lighweighted [![](https://img.shields.io/bundlephobia/min/strif.svg?style=flat-square)]()
+* ✔︎ Lighweighted 
 
 
 ## Table Of Content <!-- omit in toc -->

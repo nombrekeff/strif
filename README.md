@@ -40,7 +40,7 @@
 - [Overview](#overview)
 - [Installation](#installation)
 - [Importing](#importing)
-- [Usage](#usage)
+- [Getting Started](#getting-started)
   - [Using in Node](#using-in-node)
   - [Using in Browser](#using-in-browser)
 - [Api](#api)
@@ -144,7 +144,7 @@ In the browser:
 
 [back to top](#table-of-content-)
 
-## Usage
+## Getting Started
 ### Using in Node
 The easiest way to use **strif** is to use the default formatter under **strif**
 ```js

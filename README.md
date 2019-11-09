@@ -35,6 +35,28 @@
 * ✔︎ Type Checking
 * ✔︎ No Dependencies
 
+
+## Table Of Content <!-- omit in toc -->
+- [Introduction](#introduction)
+- [Overview](#overview)
+- [Installation](#installation)
+- [Importing](#importing)
+- [Usage](#usage)
+  - [Using in Node](#using-in-node)
+  - [Using in Browser](#using-in-browser)
+- [Api](#api)
+  - [strif](#strif)
+    - [strif.Formatter](#strifformatter)
+    - [strif.Template](#striftemplate)
+    - [strif.Prop](#strifprop)
+    - [strif.PropOptions](#strifpropoptions)
+    - [strif.TemplateOptions](#striftemplateoptions)
+    - [strif.FormatterOptions](#strifformatteroptions)
+  - [Transformers](#transformers)
+  - [Plugins](#plugins)
+- [Found a bug or have a feature request](#found-a-bug-or-have-a-feature-request)
+- [Contributing](#contributing)
+
 ## Introduction
 First of all thanks for checking this project out! **Strif** was initially created for one of my other libraries [Loggin'JS]() which needed some features I could not find in other libraries and decided to do it myself.
 
@@ -77,29 +99,6 @@ Here are some usecases that strif could work for:
 * Dinamic formating
 * User inputed data
 * Internationalization
-
-
-
-
-## Table Of Content <!-- omit in toc -->
-- [Overview](#overview)
-- [Installation](#installation)
-- [Importing](#importing)
-- [Usage](#usage)
-  - [Using in Node](#using-in-node)
-  - [Using in Browser](#using-in-browser)
-- [Api](#api)
-  - [strif](#strif)
-    - [strif.Formatter](#strifformatter)
-    - [strif.Template](#striftemplate)
-    - [strif.Prop](#strifprop)
-    - [strif.PropOptions](#strifpropoptions)
-    - [strif.TemplateOptions](#striftemplateoptions)
-    - [strif.FormatterOptions](#strifformatteroptions)
-  - [Transformers](#transformers)
-  - [Plugins](#plugins)
-- [Found a bug or have a feature request](#found-a-bug-or-have-a-feature-request)
-- [Contributing](#contributing)
 
 ## Overview
 ```js

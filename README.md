@@ -24,7 +24,7 @@
 [![Dependencies][dependencies-badge]][dependencies-link]
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
 
-<p>Format strings easily</p>
+<p>String formatting utility</p>
 </div>
 
 ****

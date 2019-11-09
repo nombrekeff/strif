@@ -93,7 +93,7 @@ Now let me explain the concepts used here:
 
 * `Transformer`  
   * Transformers are functions passed into the Formatter, that process some segments of the log _(when applied)_.
-  
+
 [back to top](#table-of-content-)
 
 ## Some Usecases
@@ -147,32 +147,38 @@ In the browser:
 
 ## Usage
 ### Using in Node
-Using **strif** is actually pretty easy, you can use the default formatter under **strif**
+The easiest way to use **strif** is to use the default formatter under **strif**
 ```js
+const strif = require('strif');
+
 let template = strif.template('{time} {user} {message}');
 template.compile(data);
 // Or
 strif.compile('{time} {user} {message}', data);
 ```
-or create a custom one by using `strif.create(opts)`, you can pass a set of [transformers](#transformers) and [plugins](#plugins) and other [options](#strifformatteroptions)
+or you can create a custom one by using `strif.create(opts)`, this means you can pass in additional [transformers](#transformers) and other [options](#strifformatteroptions)
 ```js
+const strif = require('strif');
+
 const formatter = strif.create({
   transformers: {
     date: s => new Date(s),
-    lds:  d => d.toLocaleString()
+    lds: d => d.toLocaleString()
   }
 });
 
 let template = formatter
-  .template('{time} {user} {message}')
-  .prop('time', { transformers: [`date`] });
+  .template('[{time}] {user} - {message}')
+  .prop('user', { accessor: 'user.name' }) // You can use accessor to access object properties
+  .prop('time', { transformers: [`date`, `lds`] });
 
-template.compile({
+let result = template.compile({
   time: 11223322,
   message: 'This is a super long message ',
   user: { name: 'Bob' }
 });
 ```
+> [example](./examples/example.custom-formatter.js)
 
 [back to top](#table-of-content-)
 

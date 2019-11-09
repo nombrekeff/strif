@@ -100,7 +100,7 @@ Here are some usecases that **Strif** could work for:
 * User inputed data
 * Internationalization
 
-## Overview [example](./examples/example.overview.js)
+## Overview 
 ```js
 let data = {
   time: '10-10-2019',
@@ -114,6 +114,7 @@ template.compile(data);
 strif.compile('[{time}] {user} {message}', data);
 // > [10-10-2019] keff What time is it?
 ```
+> [example](./examples/example.overview.js)
 
 ## Installation
 Install from npm:

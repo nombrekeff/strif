@@ -95,34 +95,24 @@ Now let me explain the concepts used here:
   * Transformers are functions passed into the Formatter, that process some segments of the log _(when applied)_.
 
 ## Some Usecases
-Here are some usecases that strif could work for:
+Here are some usecases that **Strif** could work for:
 * Dinamic formating
 * User inputed data
 * Internationalization
 
-## Overview
+## Overview [example](./examples/example.overview.js)
 ```js
-const formatter = strif.create({
-  transformers: {
-    date: s => new Date(s),
-    lds:  d => d.toLocaleString()
-  },
-  plugins: [
-    '.tests/plugins/strif-color.js'
-  ]
-});
+let data = {
+  time: '10-10-2019',
+  user: 'keff',
+  message: 'What time is it?'
+};
 
-const template =
-  formatter
-    .template('{time} {user} {message}', {
-      props: {
-        time: { transformers: [`date`, `lds`, `blue`]                        },
-        user: { transformers: [`gray`],               accessor: 'user.name'  },
-      }
-    })
-    .prop('message', { type: 'string' });
-
-console.log(template.compile(data));
+let template = strif.template('[{time}] {user} {message}');
+template.compile(data);
+// Or easier
+strif.compile('[{time}] {user} {message}', data);
+// > [10-10-2019] keff What time is it?
 ```
 
 ## Installation

@@ -35,6 +35,52 @@
 * ✔︎ Type Checking
 * ✔︎ No Dependencies
 
+## Introduction
+First of all thanks for checking this project out! **Strif** was initially created for one of my other libraries [Loggin'JS]() which needed some features I could not find in other libraries and decided to do it myself.
+
+What I needed was to be able to **process a string in segments**, and apply some **format** to them, with the option to **enable/disable** which parts are formatted and which parts are not. For example:
+* In Loggin'JS if **color is enabled** in the logger, I want to **apply** the **color format**.
+
+Now let me explain the concepts used here:
+* `Formatter` 
+  - This class is created with a set of options, to then create templates from it _(see below)_.
+  ```js
+    let formatter = strif.create({
+      transformers: {
+        date: s => new Date(s),
+        lds:  d => d.toLocaleString()
+      }
+    });
+  ```
+   - Above we create a formatter, to which we pass in an object containing a set of transformers _(see below)_,
+   in this case, `date` processes a string and converts it to a Date object, and `lds` calls [`.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
+  
+* `Template` 
+  - This class holds a string template i.e: `{date} - {message}`, and a set of options for each segment.
+  ```js
+    let template = formatter.template(`[{date}] - {message}`, {
+      props: {
+        date: { transformers: [`date`, `lds`] },
+      }
+    });
+    
+    let result = template.compile({ date: '10-10-2019 00:00', message: 'Hey there!' });
+    // [2019-10-10 00:00] - Hey there!
+  ```
+  - Above we create a template `{date} - {message}`, then we pass in an object containing `.props`, which are options specific for each segment `{...}`, in this case we pass in `date` and `lds` **transformers** _(see below)_, they will process the date into a localized date format.
+
+* `Transformer`  
+  * Transformers are functions passed into the Formatter, that process some segments of the log _(when applied)_.
+
+## Some Usecases
+Here are some usecases that strif could work for:
+* Dinamic formating
+* User inputed data
+* Internationalization
+
+
+
+
 ## Table Of Content <!-- omit in toc -->
 - [Overview](#overview)
 - [Installation](#installation)

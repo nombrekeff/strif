@@ -93,6 +93,7 @@ Now let me explain the concepts used here:
 
 * `Transformer`  
   * Transformers are functions passed into the Formatter, that process some segments of the log _(when applied)_.
+[back to top](#table-of-content-)
 
 ## Some Usecases
 Here are some usecases that **Strif** could work for:
@@ -115,6 +116,7 @@ strif.compile('[{time}] {user} {message}', data);
 // > [10-10-2019] keff What time is it?
 ```
 > [example](./examples/example.overview.js)
+[back to top](#table-of-content-)
 
 ## Installation
 Install from npm:
@@ -138,6 +140,7 @@ In the browser:
 <script src="node_modules/strif/dist/strif.dist.js"></script>
 ```
 > ! NOTICE: Plugins currently don't work in browser, woking on it. PRs Welcome
+[back to top](#table-of-content-)
 
 ## Usage
 ### Using in Node
@@ -167,6 +170,8 @@ template.compile({
   user: { name: 'Bob' }
 });
 ```
+[back to top](#table-of-content-)
+
 ### Using in Browser
 Using **strif** in the browser is as simple as in node, just import the script `strif/dist/strif.dist.js`
 ```html
@@ -182,7 +187,7 @@ Using **strif** in the browser is as simple as in node, just import the script `
 </html>
 ```
 > ! NOTICE: Plugins currently don't work in browser, woking on it. PRs Welcome
-
+[back to top](#table-of-content-)
 
 ## Api
 ### strif
@@ -244,6 +249,7 @@ interface strif.FormatterOptions {
   plugins: string[]; 
 }
 ```
+[back to top](#table-of-content-)
 
 ### Transformers
 Transformers are **functions** that are used to process some segment of the template,  
@@ -256,7 +262,7 @@ they will **receive a value** and they **must** also **return a value**, here ar
   }
 }
 ```
-
+[back to top](#table-of-content-)
 
 
 ### Plugins
@@ -273,6 +279,7 @@ module.exports = {
 };
 ```
 >  Check this [demo](./tests/plugins/strif-color.js) for another example.
+[back to top](#table-of-content-)
 
 ## Found a bug or have a feature request
 If you found a **bug** or have a **feature request** please dont hesitate on leaving a [issue]()

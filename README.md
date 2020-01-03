@@ -61,6 +61,14 @@ First of all thanks for checking this project out!
 
 **Strif** was initially created for one of my other libraries [Loggin'JS](https://github.com/loggin-js/loggin-js) which needed some features I could not find in other libraries and decided to do it myself. What I needed was to be able to **process a string in segments**, and apply some **format** to them, with the option to **enable/disable** which parts are formatted and which parts are not. For example:
 * In Loggin'JS if **color is enabled** in the logger, I want to **apply** the **color format**.
+* Check out an example on how I use it in Loggin'JS [here](https://github.com/loggin-js/loggin-js/blob/master/src/lib/formatter.js)
+
+Snippet:
+```js
+  return formatter.template.compile(log, {
+    ignoreTransformers: color ? false : ignored
+  });
+```
 
 Now let me explain the concepts used here:
 * `Formatter` 

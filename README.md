@@ -80,20 +80,20 @@ format.compile(data2); // > bob has 2 messages
 This aproachs adds a bit more "usefullness" if you like, when creating a new reusabale **template**, you have the option to pass in a set of options, explained in the next example.
 
 ### Process template, with transformations
-In this example case, we want to capitalize the username.
+In this example case, we want to capitalize the username **optionally**.
 
 **Before:** 
 ```js
-const format = (data) => {
+const format = (data, ignore = false) => {
   const name = data.user.name;
   const nameCapitalized = name[0].toUpperCase() + name.slice(1); 
-  return `${nameCapitalized} has ${data.messageCount} messages`;
+  return `${ignore ? name : nameCapitalized} has ${data.messageCount} messages`;
 };
 const data1 = { user: { name: 'keff' }, messageCount: 3 };
 const data2 = { user: { name: 'bob' },  messageCount: 2 };
 
-format(data1); // > Keff has 3 messages
-format(data2); // > Bob has 2 messages
+format(data1);       // > Keff has 3 messages
+format(data2, true); // > bob has 2 messages
 ```
 
 **After:**  
@@ -107,9 +107,13 @@ const data1 = { user: { name: 'keff' }, messageCount: 3 };
 const data2 = { user: { name: 'bob' },  messageCount: 2 };
 
 format.compile(data1); // > Keff has 3 messages
-format.compile(data2); // > Bob has 2 messages
+format.compile(
+  data2, 
+  { ignoreTransformers: ['capitalize'] }
+); // > bob has 2 messages
 ```
 
+See how the first example is actually quite messy to extend. 
 
 ## Table Of Content <!-- omit in toc -->
 - [Introduction](#introduction)

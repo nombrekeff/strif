@@ -34,6 +34,85 @@
 * ✔︎ No Dependencies
 * ✔︎ Lighweighted 
 
+## Comparation
+Comparation between using **strif** and **template literals**.
+
+For most usecases you will go fine just using template literals, but in some cases it is not enough. If that is you case, maybe strif can help out! Just keep reading a little bit. 
+
+
+### Process template (once)
+**Before:** 
+```js
+const data = { user: { name: 'keff' }, messages: [...] };
+const result = `${data.user.name} has ${data.message.length} messages';
+```
+
+**After:**
+```js
+const data = { user: { name: 'keff' }, messages: [...] };
+const result = strif.compile(
+  '{user} has {messages.length} messages', 
+  data,
+);
+```
+If this is the only feature you need from this lib, better stick to **template literals**. As it does not offer much advantages over the native way. If you need more advanced templating, keep reading :)
+
+### Process template (repeatedly)
+**Before:** 
+```js
+const format = (data) => `${data.user.name} has ${data.messageCount} messages';
+const data1 = { user: { name: 'keff' }, messageCount: 3 };
+const data2 = { user: { name: 'bob' },  messageCount: 2 };
+
+format(data1); // > keff has 3 messages
+format(data2); // > bob has 2 messages
+```
+
+**After:**
+```js
+const format = strif.template('{user.name} has {messageCount} messages');
+const data1 = { user: { name: 'keff' }, messageCount: 3 };
+const data2 = { user: { name: 'bob' },  messageCount: 2 };
+
+format.compile(data1); // > keff has 3 messages
+format.compile(data2); // > bob has 2 messages
+```
+This aproachs adds a bit more "usefullness" if you like, when creating a new reusabale **template**, you have the option to pass in a set of options, explained in the next example.
+
+### Process template, with transformations
+In this example case, we want to capitalize the username.
+
+**Before:** 
+```js
+const format = (data) => {
+  const name = data.user.name;
+  const nameCapitalized = name[0].toUpperCase() + name.slice(1); 
+  return `${nameCapitalized} has ${data.messageCount} messages';
+};
+const data1 = { user: { name: 'keff' }, messageCount: 3 };
+const data2 = { user: { name: 'bob' },  messageCount: 2 };
+
+format(data1); // > Keff has 3 messages
+format(data2); // > Bob has 2 messages
+```
+
+**After:**  
+Strif offers a set of [default **transformers**](), additionaly you can create your own.
+```js
+const format = strif.template('{name} has {messageCount} messages', {
+  props: {
+    name: {
+      accessor: 'user.name',
+      transformers: ['capitalize']
+    }
+  }
+});
+const data1 = { user: { name: 'keff' }, messageCount: 3 };
+const data2 = { user: { name: 'bob' },  messageCount: 2 };
+
+format.compile(data1); // > Keff has 3 messages
+format.compile(data2); // > Bob has 2 messages
+```
 
 ## Table Of Content <!-- omit in toc -->
 - [Introduction](#introduction)
@@ -60,54 +139,9 @@
 First of all thanks for checking this project out!  
 
 **Strif** was initially created for one of my other libraries [Loggin'JS](https://github.com/loggin-js/loggin-js) which needed some features I could not find in other libraries and decided to do it myself. What I needed was to be able to **process a string in segments**, and apply some **format** to them, with the option to **enable/disable** which parts are formatted and which parts are not. For example:
-* In Loggin'JS if **color is enabled** in the logger, I want to **apply** the **color format**.
-* Check out an example on how I use it in Loggin'JS [here](https://github.com/loggin-js/loggin-js/blob/master/src/lib/formatter.js)
-
-Snippet:
-```js
-  return formatter.template.compile(log, {
-    ignoreTransformers: color ? false : ignored
-  });
-```
-
-Now let me explain the concepts used here:
-* `Formatter` 
-  - This class is created with a set of options, to then create templates from it _(see below)_.
-  ```js
-    let formatter = strif.create({
-      transformers: {
-        date: s => new Date(s),
-        lds:  d => d.toLocaleString()
-      }
-    });
-  ```
-   - Above we create a formatter, to which we pass in an object containing a set of transformers _(see below)_,
-   in this case, `date` processes a string and converts it to a Date object, and `lds` calls [`.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
-  
-* `Template` 
-  - This class holds a string template i.e: `{date} - {message}`, and a set of options for each segment.
-  ```js
-    let template = formatter.template(`[{date}] - {message}`, {
-      props: {
-        date: { transformers: [`date`, `lds`] },
-      }
-    });
-    
-    let result = template.compile({ date: '10-10-2019 00:00', message: 'Hey there!' });
-    // [2019-10-10 00:00] - Hey there!
-  ```
-  - Above we create a template `{date} - {message}`, then we pass in an object containing `.props`, which are options specific for each segment `{...}`, in this case we pass in `date` and `lds` **transformers** _(see below)_, they will process the date into a localized date format.
-
-* `Transformer`  
-  * Transformers are functions passed into the Formatter, that process some segments of the log _(when applied)_.
 
 [back to top](#table-of-content-)
 
-## Some Usecases
-Here are some usecases that **Strif** could work for:
-* Dinamic formating
-* User inputed data
-* Internationalization
 
 ## Overview 
 ```js

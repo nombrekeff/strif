@@ -87,7 +87,7 @@ In this example case, we want to capitalize the username.
 const format = (data) => {
   const name = data.user.name;
   const nameCapitalized = name[0].toUpperCase() + name.slice(1); 
-  return `${nameCapitalized} has ${data.messageCount} messages;
+  return `${nameCapitalized} has ${data.messageCount} messages`;
 };
 const data1 = { user: { name: 'keff' }, messageCount: 3 };
 const data2 = { user: { name: 'bob' },  messageCount: 2 };
@@ -99,14 +99,10 @@ format(data2); // > Bob has 2 messages
 **After:**  
 Strif offers a set of [default **transformers**](), additionaly you can create your own.
 ```js
-const format = strif.template('{name} has {messageCount} messages', {
-  props: {
-    name: {
-      accessor: 'user.name',
-      transformers: ['capitalize']
-    }
-  }
-});
+const format = strif
+  .template('{name} has {messageCount} messages')
+  .prop('name', { accessor: 'user.name', transformers: ['capitalize'] });
+
 const data1 = { user: { name: 'keff' }, messageCount: 3 };
 const data2 = { user: { name: 'bob' },  messageCount: 2 };
 

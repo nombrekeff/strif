@@ -51,7 +51,7 @@ const result = `${data.user.name} has ${data.message.length} messages';
 ```js
 const data = { user: { name: 'keff' }, messages: [...] };
 const result = strif.compile(
-  '{user} has {messages.length} messages', 
+  '{user.name} has {messages.length} messages', 
   data,
 );
 ```
@@ -60,7 +60,7 @@ If this is the only feature you need from this lib, better stick to **template l
 ### Process template (repeatedly)
 **Before:** 
 ```js
-const format = (data) => `${data.user.name} has ${data.messageCount} messages';
+const format = (data) => `${data.user.name} has ${data.messageCount} messages`;
 const data1 = { user: { name: 'keff' }, messageCount: 3 };
 const data2 = { user: { name: 'bob' },  messageCount: 2 };
 
@@ -87,7 +87,7 @@ In this example case, we want to capitalize the username.
 const format = (data) => {
   const name = data.user.name;
   const nameCapitalized = name[0].toUpperCase() + name.slice(1); 
-  return `${nameCapitalized} has ${data.messageCount} messages';
+  return `${nameCapitalized} has ${data.messageCount} messages;
 };
 const data1 = { user: { name: 'keff' }, messageCount: 3 };
 const data2 = { user: { name: 'bob' },  messageCount: 2 };
@@ -113,6 +113,7 @@ const data2 = { user: { name: 'bob' },  messageCount: 2 };
 format.compile(data1); // > Keff has 3 messages
 format.compile(data2); // > Bob has 2 messages
 ```
+
 
 ## Table Of Content <!-- omit in toc -->
 - [Introduction](#introduction)

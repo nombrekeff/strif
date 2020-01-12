@@ -37,7 +37,7 @@
 ## Comparation
 Comparation between using **strif** and **template literals**.
 
-For most usecases you will go fine just using template literals, but in some cases it is not enough. If that is you case, maybe strif can help out! Just keep reading a little bit. 
+For most usecases you will go fine just using template literals, but in some cases it is not enough, if that is your case, maybe strif can help out! Just keep reading a little bit :P
 
 
 ### Process template (once)
@@ -97,7 +97,9 @@ format(data2, true); // > bob has 2 messages
 ```
 
 **After:**  
-Strif offers a set of [default **transformers**](), additionaly you can create your own.
+Strif offers a set of default [**transformers**]() that you can apply to a specific value, which internally we call **prop**. 
+
+You can additionally create your own transformers, see [this](#Custom-formatter).
 ```js
 const format = strif
   .template('{name} has {messageCount} messages')
@@ -112,8 +114,7 @@ format.compile(
   { ignoreTransformers: ['capitalize'] }
 ); // > bob has 2 messages
 ```
-
-See how the first example is actually quite messy to extend. 
+See how the first example is actually quite messy to extend, both to add more transformers, and to disable them.
 
 ## Table Of Content <!-- omit in toc -->
 - [Introduction](#introduction)
@@ -188,7 +189,7 @@ In the browser:
 [back to top](#table-of-content-)
 
 ## Getting Started
-### Using in Node
+### Simple formatter
 The easiest way to use **strif** is to use the default formatter under **strif**
 ```js
 const strif = require('strif');
@@ -198,6 +199,8 @@ template.compile(data);
 // Or
 strif.compile('{time} {user} {message}', data);
 ```
+
+### Custom formatter
 or you can create a custom one by using `strif.create(opts)`, this means you can pass in additional [transformers](#transformers) and other [options](#strifformatteroptions)
 ```js
 const strif = require('strif');
